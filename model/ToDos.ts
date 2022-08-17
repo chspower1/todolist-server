@@ -1,9 +1,17 @@
 import { ObjectId } from "mongodb";
 import mongoose, { Schema } from "mongoose";
 
-const ToDoSchema = new Schema(
+interface IToDo {
+    id: string;
+    text: string;
+    date: string;
+    category: Categories;
+}
+
+type Categories = "TO_DO" | "DOING" | "DONE";
+
+const ToDoSchema = new Schema<IToDo>(
     {
-        _id: ObjectId,
         id: String,
         text: String,
         date: String,
@@ -11,4 +19,4 @@ const ToDoSchema = new Schema(
     },
     { versionKey: false }
 );
-export const ToDo = mongoose.model("ToDo", ToDoSchema);
+export const ToDo = mongoose.model<IToDo>("ToDo", ToDoSchema);
